@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoaderService } from 'src/app/core/loader.service';
 
 import { MovieService } from 'src/app/core/movie.services';
 import { Movie } from 'src/app/core/movies';
@@ -20,16 +21,17 @@ export class HomeComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private movieService: MovieService
+    private movieService: MovieService,
+    public loaderService: LoaderService
   ) {
-    this.movies$ = this.movieService.getMovies();
-    this.movieService = movieService;
+    // this.movies$ = this.movieService.getMovies();
+    // this.movieService = movieService;
   }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe((data: any) => {
-      this.movies = data.movies;
-    });
+    // this.activatedRoute.data.subscribe((data: any) => {
+    //   this.movies = data.movies;
+    // });
     this.movieService.sortSubject$.subscribe((movieOrder: any) => {
       this.sortField = movieOrder.sortField;
       this.sortOrder = movieOrder.sortOrder;
@@ -37,8 +39,8 @@ export class HomeComponent {
     this.movieService.searchSubject$.subscribe((search: any) => {
       this.dataView?.filter(search);
     });
-    // this.movieService.getMovies().subscribe((movies) => {
-    //   this.movies = movies;
-    // });
+    this.movieService.getMovies().subscribe((movies) => {
+      this.movies = movies;
+    });
   }
 }

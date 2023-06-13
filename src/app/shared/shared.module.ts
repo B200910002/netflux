@@ -19,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { DatePipe } from '@angular/common';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 const modules = [
   FormsModule,
@@ -37,6 +38,7 @@ const modules = [
   DatePipe,
   MenubarModule,
   ToastModule,
+  ProgressSpinnerModule,
 ];
 
 @NgModule({

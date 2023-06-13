@@ -8,6 +8,7 @@ import { MovieService } from 'src/app/core/movie.services';
 import { MovieFormComponent } from './movie-form/movie-form.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
+import { delay } from 'rxjs';
 
 export const MovieResolver: ResolveFn<any> = (route) => {
   const id = route.paramMap.get('id');
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: '',
     title: 'home',
-    resolve: { movies: MoviesResolver },
+    // resolve: { movies: MoviesResolver },
     component: HomeComponent,
   },
   {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { LoaderService } from './core/loader.service';
 
 @Component({
   selector: 'app-root',

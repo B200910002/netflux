@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, delay, map } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Movie } from './movies';
 import { environments } from 'src/environment/environment';
