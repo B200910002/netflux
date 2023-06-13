@@ -1,0 +1,27 @@
+<p-panel header="Movie form">
+  <div class="p-fluid">
+    <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+      <div class="grid col-12">
+        <div class="md:col-6 p-field" *ngFor="let controlName of controlNames">
+          <label for="{{ controlName }}">{{ controlName }}</label>
+          <input
+            id="{{ controlName }}"
+            type="text"
+            pInputText
+            formControlName="{{ controlName }}"
+            appTestDirective
+          />
+        </div>
+      </div>
+      <p-button
+        class="p-button-success border-round-lg w-full"
+        type="submit"
+        label="Submit"
+      ></p-button>
+    </form>
+    <div appTestDirective>
+      This text will have a yellow background and red color.
+    </div>
+    <div>{{ 2 | exponential : 10 }}</div>
+  </div></p-panel
+>

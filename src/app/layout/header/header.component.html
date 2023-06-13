@@ -1,0 +1,37 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <a [routerLink]="['/']"
+      ><img src="../../../assets/NETFLUX.svg" height="20" class="mr-2"
+    /></a>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <p-dropdown
+      [options]="sortOptions"
+      placeholder="Sort By Rating"
+      (onChange)="onSortChange($event)"
+    ></p-dropdown>
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        type="search"
+        pInputText
+        [(ngModel)]="searchInput"
+        placeholder="Search by Name"
+        (input)="onFilter($event)"
+      />
+    </span>
+    <!-- <input type="search" pInputText placeholder="Search by Name" /> -->
+    <a *ngIf="isAuth()">You are signed.</a>
+    <p-button
+      *ngIf="!isAuth()"
+      label="Sign"
+      (onClick)="onClickSignButton()"
+    ></p-button>
+    <p-button
+      *ngIf="isAuth()"
+      label="Quit"
+      (onClick)="onClickQuitButton()"
+    ></p-button>
+  </ng-template>
+</p-menubar>
