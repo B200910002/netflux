@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscriber } from 'rxjs';
 import { LoaderService } from 'src/app/core/loader.service';
 
 import { MovieService } from 'src/app/core/movie.services';
@@ -12,35 +12,40 @@ import { Movie } from 'src/app/core/movies';
   styles: [''],
 })
 export class HomeComponent {
+  subscribe!: any;
+
   @ViewChild('dataView') dataView: any;
   movies: Movie[] = [];
   movies$!: Observable<any>;
-
-  sortOrder: number = -1;
-  sortField: string = 'imdbRating';
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private movieService: MovieService,
     public loaderService: LoaderService
   ) {
-    // this.movies$ = this.movieService.getMovies();
-    // this.movieService = movieService;
+    this.movies$ = this.movieService.movies$;
   }
 
   ngOnInit() {
+    // turn on resolver so route has be data
     // this.activatedRoute.data.subscribe((data: any) => {
     //   this.movies = data.movies;
     // });
-    this.movieService.sortSubject$.subscribe((movieOrder: any) => {
-      this.sortField = movieOrder.sortField;
-      this.sortOrder = movieOrder.sortOrder;
-    });
-    this.movieService.searchSubject$.subscribe((search: any) => {
-      this.dataView?.filter(search);
-    });
-    this.movieService.getMovies().subscribe((movies) => {
-      this.movies = movies;
+    // this.movieService.searchSubject$.subscribe((search: any) => {
+    //   this.dataView?.filter(search);
+    // });
+  }
+
+  ngOnDestroy() {
+    console.log('home onDestroyed');
+  }
+
+  next(event: any) {
+    this.movieService.updateMovieState({
+      page: Math.floor(event.first / event.rows),
+      rows: event.rows,
+      sortField: event.sortField,
+      sortOrder: event.sortOrder,
     });
   }
 }

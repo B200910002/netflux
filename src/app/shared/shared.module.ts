@@ -20,6 +20,9 @@ import { DatePipe } from '@angular/common';
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AbstractStringPipe } from './pipes/abstract-string.pipe';
+import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'primeng/skeleton';
 
 const modules = [
   FormsModule,
@@ -39,6 +42,8 @@ const modules = [
   MenubarModule,
   ToastModule,
   ProgressSpinnerModule,
+  TableModule,
+  SkeletonModule,
 ];
 
 @NgModule({
@@ -46,6 +51,7 @@ const modules = [
     TestDirectiveDirective,
     ExponentialPipe,
     CustomDirectiveDirective,
+    AbstractStringPipe,
   ],
   imports: [CommonModule, ...modules],
   exports: [
@@ -53,6 +59,7 @@ const modules = [
     TestDirectiveDirective,
     ExponentialPipe,
     CustomDirectiveDirective,
+    AbstractStringPipe,
   ],
 })
 export class SharedModule {}

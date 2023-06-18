@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/core/movies';
 import { movieEntity } from './movie.entity';
+import { MovieService } from 'src/app/core/movie.services';
 
 @Component({
   selector: 'app-movie-form',
@@ -15,7 +16,11 @@ export class MovieFormComponent {
   movieEntity = movieEntity;
   controlNames: string[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    private movieService: MovieService
+  ) {
     let formControls = Object.keys(movieEntity).reduce((acc: any, key) => {
       acc[key] = [''];
       return acc;
@@ -24,7 +29,7 @@ export class MovieFormComponent {
     this.movieForm = this.fb.group(formControls);
     this.controlNames = Object.keys(movieEntity);
 
-    console.log(this.movieForm);
+    console.log(this.movieForm.value);
     this.movieForm.valueChanges.pipe();
 
     this.activatedRoute.data.subscribe((data: any) => {
@@ -39,7 +44,15 @@ export class MovieFormComponent {
 
   onSubmit() {
     if (this.movieForm.valid) {
-      alert(JSON.stringify(this.movieForm.value));
+      if (window.confirm('Are you sure?')) {
+        this.movieService
+          .putMovie(this.movieForm.value.id, this.movieForm.value)
+          .subscribe(() => {
+            alert('Successfuly edit movie');
+          });
+      } else {
+        alert('something wrong');
+      }
     }
   }
 

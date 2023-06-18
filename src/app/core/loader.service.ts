@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -6,18 +6,17 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoaderService {
   constructor() {}
-  public isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+
+  private isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
 
   showLoader(): void {
     this.isLoading.next(true);
-    // Logic to show the loader in your UI
   }
 
   hideLoader(): void {
     this.isLoading.next(false);
-    // Logic to hide the loader in your UI
   }
 
   isLoadingState(): BehaviorSubject<boolean> {

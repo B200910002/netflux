@@ -9,6 +9,7 @@ import { MovieFormComponent } from './movie-form/movie-form.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
 import { delay } from 'rxjs';
+import { MovieListComponent } from './movie-list/movie-list.component';
 
 export const MovieResolver: ResolveFn<any> = (route) => {
   const id = route.paramMap.get('id');
@@ -19,12 +20,18 @@ export const MoviesResolver: ResolveFn<any> = () => {
   return inject(MovieService).getMovies();
 };
 
+export const MoviesResolver2: ResolveFn<any> = () => {
+  return inject(MovieService).getData(0, 16);
+};
+
 const routes: Routes = [
   {
     path: '',
     title: 'home',
     // resolve: { movies: MoviesResolver },
-    component: HomeComponent,
+    // component: HomeComponent,
+    resolve: { movies: MoviesResolver2 },
+    component: MovieListComponent,
   },
   {
     path: 'movie-id/:id',
@@ -57,7 +64,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, MovieFormComponent, MovieDetailsComponent],
+  declarations: [
+    HomeComponent,
+    MovieFormComponent,
+    MovieDetailsComponent,
+    MovieListComponent,
+  ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
 })
 export class HomeModule {}

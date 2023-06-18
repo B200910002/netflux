@@ -1,6 +1,6 @@
 <div
   *ngIf="loaderService.isLoadingState() | async"
-  class="flex justify-content-center"
+  class="flex justify-content-center align-items-center"
 >
   <p-progressSpinner
     styleClass="w-4rem h-4rem"
@@ -10,19 +10,24 @@
   ></p-progressSpinner>
 </div>
 
-<p-panel *ngIf="!(loaderService.isLoadingState() | async)" header="Movies">
+<!-- <p-panel *ngIf="!(loaderService.isLoadingState() | async)"> -->
+<p-panel header="Movies" *ngIf="movies$ | async as movies">
   <div class="grid">
     <div class="col-12">
       <div class="card">
         <p-dataView
           #dataView
-          [value]="movies"
+          [value]="movies.data"
           [paginator]="true"
-          [rows]="20"
+          [rows]="4"
           filterBy="Title"
-          [sortField]="sortField"
-          [sortOrder]="sortOrder"
+          [sortField]="movies.sortField"
+          [sortOrder]="movies.sortOrder"
           layout="grid"
+          [lazy]="true"
+          (onLazyLoad)="next($event)"
+          [totalRecords]="movies.totalRecords"
+          [rowsPerPageOptions]="[4, 8, 12, 16, 20]"
         >
           <ng-template let-movie pTemplate="gridItem">
             <div class="col-12 md:col-3">
@@ -43,10 +48,13 @@
                     <img
                       [src]="movie.poster"
                       [alt]="movie.plot"
-                      width="200"
+                      width="100"
+                      height="150"
                       class="shadow-2 my-3 mx-0"
                     />
-                    <div class="text-2xl font-bold">{{ movie.title }}</div>
+                    <div class="text-2xl font-bold">
+                      {{ movie.title | abstractString }}
+                    </div>
                     <div class="mb-3">{{ movie.year }}</div>
                     <p-rating
                       [(ngModel)]="movie.imdbRating"
@@ -65,5 +73,5 @@
         </p-dataView>
       </div>
     </div>
-  </div></p-panel
->
+  </div>
+</p-panel>

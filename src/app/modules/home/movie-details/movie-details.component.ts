@@ -12,7 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { Observable, Subscribable, Subscriber } from 'rxjs';
 import { MovieService } from 'src/app/core/movie.services';
 import { Movie } from 'src/app/core/movies';
 
@@ -20,7 +20,6 @@ import { Movie } from 'src/app/core/movies';
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
   styleUrls: ['./movie-details.component.scss'],
-  providers: [MessageService],
 })
 export class MovieDetailsComponent
   implements
@@ -33,41 +32,50 @@ export class MovieDetailsComponent
     AfterViewChecked,
     OnDestroy
 {
-  movie: Movie | undefined;
+  // movie!: Movie;
+  movie$!: Observable<Movie>;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private movieService: MovieService,
-    private messageService: MessageService
+    private movieService: MovieService
   ) {}
+  subscribe!: any;
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe((data: any) => {
-      this.movie = data.movie;
+    // with resolver
+    // this.activatedRoute.data.subscribe((data: any) => {
+    //   this.movie = data.movie;
+    // });
+
+    // without resolver
+    this.subscribe = this.activatedRoute.params.subscribe((params) => {
+      this.movie$ = this.movieService.getMovieById(params['id']);
     });
-    console.log(this.movie);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges');
+    // console.log('ngOnChanges');
   }
   ngDoCheck(): void {
-    console.log('ngDoCheck');
+    // console.log('ngDoCheck');
   }
   ngAfterContentInit(): void {
-    console.log('ngAfterContentInit');
+    // console.log('ngAfterContentInit');
   }
   ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
+    // console.log('ngAfterContentChecked');
   }
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit');
+    // console.log('ngAfterViewInit');
   }
   ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked');
+    // console.log('ngAfterViewChecked');
   }
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
+    console.log('movie-details onDestroyed');
+    this.subscribe.unsubscribe();
   }
   onClickEditButton() {
-    this.router.navigate(['movie-id', this.movie?.id, 'edit']);
+    this.movie$.subscribe((movie) => {
+      this.router.navigate(['movie-id', movie?.id, 'edit']);
+    });
   }
 }

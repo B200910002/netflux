@@ -20,13 +20,13 @@ export interface Movie {
   awards: string | null;
   poster: string | null;
   ratings: Rating[] | null;
-  metascore: number | null;
-  imdbrating: number | null;
-  imdbvotes: number | null;
-  imdbid: string | null;
+  metaScore: number | null;
+  imdbRating: number | null;
+  imdbVotes: number | null;
+  imdbId: string | null;
   type: string | null;
   dvd: string | null;
-  boxoffice: string | null;
+  boxOffice: string | null;
   production: string | null;
   website: string | null;
   response: number | null;

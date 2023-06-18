@@ -52,9 +52,9 @@ export class HeaderComponent {
       this.sortField = value;
     }
 
-    this.movieService.onSort({
-      sortOrder: this.sortOrder,
+    this.movieService.updateMovieState({
       sortField: this.sortField,
+      sortOrder: this.sortOrder,
     });
   }
 

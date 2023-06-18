@@ -1,43 +1,44 @@
-<p-panel header="Movie details">
+<!-- <p-panel header="Movie details"> -->
+<p-panel header="Movie details" *ngIf="movie$ | async as movie">
   <div>
     <div class="grid">
       <div class="col-5 flex align-items-center justify-content-center">
         <div class="p-fluid">
           <img
-            [src]="movie?.poster"
-            [alt]="movie?.plot"
+            [src]="movie.poster"
+            [alt]="movie.plot"
             width="200"
             class="shadow-2 my-3 mx-0"
           />
           <p>
-            <li><span>title:</span>{{ movie?.title }}</li>
+            <li><span>title:</span>{{ movie.title }}</li>
           </p>
-          <p-knob
-            [valueTemplate]="movie?.imdbrating + ''"
-            [disabled]="true"
-            [min]="0"
-            [max]="10"
-          ></p-knob>
+          <p-rating
+            [(ngModel)]="movie.imdbRating"
+            [stars]="10"
+            [readonly]="true"
+            [cancel]="false"
+          ></p-rating>
         </div>
       </div>
       <div class="col-5 flex align-items-center justify-content-start">
         <div>
           <ul>
-            <li><span>year:</span>{{ movie?.year }}</li>
-            <li><span>rated:</span>{{ movie?.rated }}</li>
+            <li><span>year:</span>{{ movie.year }}</li>
+            <li><span>rated:</span>{{ movie.rated }}</li>
             <li>
-              <span>released:</span>{{ movie?.released | date : "MMMM d, y" }}
+              <span>released:</span>{{ movie.released | date : "MMMM d, y" }}
             </li>
-            <li><span>runtime:</span>{{ movie?.runtime }}</li>
-            <li><span>genre:</span>{{ movie?.genre }}</li>
-            <li><span>director:</span>{{ movie?.director }}</li>
-            <li><span>writer:</span>{{ movie?.writer }}</li>
-            <li><span>actors:</span>{{ movie?.actors }}</li>
+            <li><span>runtime:</span>{{ movie.runtime }}</li>
+            <li><span>genre:</span>{{ movie.genre }}</li>
+            <li><span>director:</span>{{ movie.director }}</li>
+            <li><span>writer:</span>{{ movie.writer }}</li>
+            <li><span>actors:</span>{{ movie.actors }}</li>
             <li>
               <span>plot:</span>
               <div class="card">
                 <div style="width: 250px; height: 100px; overflow: auto">
-                  <p>{{ movie?.plot }}</p>
+                  <p>{{ movie.plot }}</p>
                   <p-scrollTop
                     target="parent"
                     styleClass="custom-scrolltop"
@@ -47,19 +48,19 @@
                 </div>
               </div>
             </li>
-            <li><span>language:</span>{{ movie?.language }}</li>
-            <li><span>country:</span>{{ movie?.country }}</li>
-            <li><span>awards:</span>{{ movie?.awards }}</li>
-            <li><span>ratings:</span>{{ movie?.ratings }}</li>
-            <li><span>metascore:</span>{{ movie?.metascore }}</li>
-            <li><span>imdbrating:</span>{{ movie?.imdbrating }}</li>
-            <li><span>imdbvotes:</span>{{ movie?.imdbvotes }}</li>
-            <li><span>type:</span>{{ movie?.type }}</li>
-            <li><span>dvd:</span>{{ movie?.dvd }}</li>
-            <li><span>boxoffice:</span>{{ movie?.boxoffice }}</li>
-            <li><span>production:</span>{{ movie?.production }}</li>
-            <li><span>website:</span>{{ movie?.website }}</li>
-            <li><span>response:</span>{{ movie?.response }}</li>
+            <li><span>language:</span>{{ movie.language }}</li>
+            <li><span>country:</span>{{ movie.country }}</li>
+            <li><span>awards:</span>{{ movie.awards }}</li>
+            <li><span>ratings:</span>{{ movie.ratings }}</li>
+            <li><span>metascore:</span>{{ movie.metaScore }}</li>
+            <li><span>imdbrating:</span>{{ movie.imdbRating }}</li>
+            <li><span>imdbvotes:</span>{{ movie.imdbVotes }}</li>
+            <li><span>type:</span>{{ movie.type }}</li>
+            <li><span>dvd:</span>{{ movie.dvd }}</li>
+            <li><span>boxoffice:</span>{{ movie.boxOffice }}</li>
+            <li><span>production:</span>{{ movie.production }}</li>
+            <li><span>website:</span>{{ movie.website }}</li>
+            <li><span>response:</span>{{ movie.response }}</li>
           </ul>
         </div>
       </div>
