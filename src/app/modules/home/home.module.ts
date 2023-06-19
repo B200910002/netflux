@@ -29,9 +29,9 @@ const routes: Routes = [
     path: '',
     title: 'home',
     // resolve: { movies: MoviesResolver },
-    // component: HomeComponent,
-    resolve: { movies: MoviesResolver2 },
-    component: MovieListComponent,
+    component: HomeComponent,
+    // resolve: { movies: MoviesResolver2 },
+    // component: MovieListComponent,
   },
   {
     path: 'movie-id/:id',

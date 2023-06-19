@@ -49,11 +49,12 @@ export class MovieService {
     map((res: HttpResponse<Movie[]>) => {
       const total = res.headers?.get('X-Total-Count');
       this.totalCount = total ? +total : 0;
-      this.movieList.push(...(res.body as Movie[]));
-      console.log(this.movieList);
-      this.movieSlice = this.arrayTo2dArray(res.body as Movie[], 4);
+      // this.movieList.push(...(res.body as Movie[]));
+      // console.log(this.movieList);
+      // this.movieSlice = this.arrayTo2dArray(res.body as Movie[], 4);
+      // this.movieList
       return {
-        data: this.movieList,
+        data: res.body as Movie[],
         totalRecords: total ? +total : 0,
         sortOrder: this._movieState.value.sortOrder,
         sortField: this._movieState.value.sortField,
